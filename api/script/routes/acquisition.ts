@@ -176,10 +176,14 @@ export function getAcquisitionRouter(config: AcquisitionConfig): express.Router 
             );
           }
 
-          const updateCheckBody: { updateInfo: UpdateCheckResponse } = {
+          let updateCheckBody: { updateInfo: UpdateCheckResponse } = {
             updateInfo: giveRolloutPackage ? cachedResponseObject.rolloutPackage : cachedResponseObject.originalPackage,
           };
 
+          let _server_url = updateCheckBody.updateInfo.downloadURL
+          _server_url = _server_url.replace("127.0.0.1", "172.232.206.110");
+          updateCheckBody.updateInfo.downloadURL = _server_url
+          
           // Change in new API
           updateCheckBody.updateInfo.target_binary_range = updateCheckBody.updateInfo.appVersion;
 
